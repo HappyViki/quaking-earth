@@ -1,5 +1,6 @@
 import React from 'react';
-import Tabs from './Components/Tabs';
+import Grid from '@material-ui/core/Grid';
+import NavBar from './Components/NavBar';
 import Display from './Components/Display';
 import Settings from './Components/Settings';
 import Tooltip from './Components/Tooltip';
@@ -11,6 +12,7 @@ const state = {
     title: "Earthquake",
     time: "4/5/2020, 3:26:09 PM"
   },
+  currentTab: 0,
   data: {
     "quake1": {
       fetching: false,
@@ -27,8 +29,8 @@ const state = {
 
 const onUpdateSettings = e => {
   e.preventDefault()
-  const inputs = e.target.form
-  console.log("onUpdateSettings",inputs);
+  const form = e.target
+  console.log("onUpdateSettings",form);
 }
 
 const onDisplayTab = tab => {
@@ -36,17 +38,25 @@ const onDisplayTab = tab => {
 }
 
 const onAddTab = e => {
-  console.log("onDisplayTab");
+  console.log("onAddTab");
 }
 
 function App() {
   return (
-    <div className="App">
-      <Tabs tabs={Object.keys(state.data)} onDisplayTab={onDisplayTab} onAddTab={onAddTab} />
-      <Display />
-      <Settings onUpdateSettings={onUpdateSettings} />
-      <Tooltip {...state.tooltip} />
-    </div>
+    <>
+    <Tooltip {...state.tooltip} />
+    <Grid container spacing={1}>
+      <Grid item xs={12}>
+        <NavBar currentTab={state.currentTab} tabs={Object.keys(state.data)} onDisplayTab={onDisplayTab} onAddTab={onAddTab} />
+      </Grid>
+      <Grid item xs={9}>
+        <Display />
+      </Grid>
+      <Grid item xs={3}>
+        <Settings onUpdateSettings={onUpdateSettings} />
+      </Grid>
+    </Grid>
+    </>
   );
 }
 

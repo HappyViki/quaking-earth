@@ -1,33 +1,73 @@
 import React from 'react'
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+		margin: theme.spacing(2),
+    padding: theme.spacing(2),
+  },
+	field: {
+		'margin-bottom': theme.spacing(2),
+	}
+}));
 
 const Settings = ({onUpdateSettings}) => {
+
+	const classes = useStyles();
+
 	return (
-		<div className="settings">
-			<form>
+		<Paper className={classes.root}>
+			<form onSubmit={onUpdateSettings}>
 				<h2>Earthquake Settings</h2>
-				<div>
-					<label htmlFor="location">Location:</label>
-					<input type="text" name="location" id="location"/>
-				</div>
-				<div>
-					<h3>Timeframe</h3>
-					<label htmlFor="startTime">Start:</label>
-					<input type="text" name="startTime" id="startTime"/>
-					<label htmlFor="endTime">End:</label>
-					<input type="text" name="endTime" id="endTime"/>
-				</div>
-				<div>
-					<h3>Magnitude</h3>
-					<label htmlFor="minimumMagnitude">Min:</label>
-					<input type="text" name="minimumMagnitude" id="minimumMagnitude"/>
-					<label htmlFor="maximumMagnitude">Max:</label>
-					<input type="text" name="maximumMagnitude" id="maximumMagnitude"/>
-				</div>
-				<div>
-					<input type="submit" value="Update" onClick={onUpdateSettings}/>
-				</div>
+				<TextField
+					id="location"
+					className={classes.field}
+					label="Location"
+					defaultValue="Utah"
+				/>
+				<br/>
+				<TextField
+					id="startTime"
+					className={classes.field}
+					label="Start Time"
+					type="date"
+					defaultValue="2020-03-18"
+				/>
+				<br/>
+				<TextField
+					id="endTime"
+					className={classes.field}
+					label="End Time"
+					type="date"
+					defaultValue="2020-03-25"
+				/>
+				<br/>
+				<TextField
+					id="magMin"
+					className={classes.field}
+					label="Minimum Magnitude"
+					defaultValue="2.5"
+				/>
+				<TextField
+					id="magMax"
+					className={classes.field}
+					label="Maximum Magnitude"
+					defaultValue="6"
+				/>
+				<br/>
+				<Button
+					variant="contained"
+					type="submit"
+					startIcon={<SaveIcon />}
+				>
+				Update
+				</Button>
 			</form>
-		</div>
+		</Paper>
 	)
 }
 
