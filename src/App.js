@@ -3,30 +3,21 @@ import Grid from '@material-ui/core/Grid';
 import NavBar from './Components/NavBar';
 import Display from './Components/Display';
 import Settings from './Components/Settings';
-import Tooltip from './Components/Tooltip';
-import data from './data'
+import defaultState from './defaultState'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducer from './reducers'
+import {
+  updateView,
+  addView,
+  currentView,
+  updateViewFeatures
+} from './actions'
 import './App.css';
 
-const state = {
-  tooltip: {
-    hovering: false,
-    title: "Earthquake",
-    time: "4/5/2020, 3:26:09 PM"
-  },
-  currentTab: 0,
-  data: {
-    "quake1": {
-      fetching: false,
-      settings: {},
-      features: []
-    },
-    "quake2": {
-      fetching: false,
-      settings: {},
-      features: []
-    }
-  }
-}
+const store = createStore(rootReducer, defaultState)
+
+console.log(store.getState())
 
 const onUpdateSettings = e => {
   e.preventDefault()
@@ -71,26 +62,49 @@ const fetchData = (
         return a && b && c && d && e
       }
     )
+    .map(
+      quake => ({
+        "id": quake.properties.id,
+        "title": quake.properties.title,
+        "time": quake.properties.time,
+        "mag": quake.properties.mag,
+        "coordinates": quake.properties.coordinates
+      })
+    ).reverse()
+    const index = store.getState().currentIndex
+    store.dispatch(updateViewFeatures(
+      index,
+      quakes
+    ))
     console.log("fetched",quakes)
   } )
 }
 
 function App() {
+  const state = store.getState()
+  const data = state.data
+  const tabs = data.map( dataSet => dataSet.name )
+  const features = data[state.currentIndex].features
+
   return (
-    <>
-    <Tooltip {...state.tooltip} />
-    <Grid container spacing={1}>
-      <Grid item xs={12}>
-        <NavBar currentTab={state.currentTab} tabs={Object.keys(state.data)} onDisplayTab={onDisplayTab} onAddTab={onAddTab} />
+    <Provider store={store}>
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <NavBar
+            currentTab={state.currentIndex}
+            tabs={tabs}
+            onDisplayTab={onDisplayTab}
+            onAddTab={onAddTab}
+          />
+        </Grid>
+        <Grid item xs={9}>
+          <Display features={features} />
+        </Grid>
+        <Grid item xs={3}>
+          <Settings onUpdateSettings={onUpdateSettings} />
+        </Grid>
       </Grid>
-      <Grid item xs={9}>
-        <Display data={data} />
-      </Grid>
-      <Grid item xs={3}>
-        <Settings onUpdateSettings={onUpdateSettings} />
-      </Grid>
-    </Grid>
-    </>
+    </Provider>
   );
 }
 
