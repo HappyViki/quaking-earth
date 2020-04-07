@@ -27,7 +27,7 @@ const Settings = ({onUpdateSettings}) => {
 					id="location"
 					className={classes.field}
 					label="Location"
-					defaultValue="Utah"
+					defaultValue="Magna, Utah"
 				/>
 				<br/>
 				<TextField
@@ -43,20 +43,20 @@ const Settings = ({onUpdateSettings}) => {
 					className={classes.field}
 					label="End Time"
 					type="date"
-					defaultValue="2020-03-25"
+					defaultValue="2020-03-24"
 				/>
 				<br/>
 				<TextField
 					id="magMin"
 					className={classes.field}
 					label="Minimum Magnitude"
-					defaultValue="2.5"
+					defaultValue="3.5"
 				/>
 				<TextField
 					id="magMax"
 					className={classes.field}
 					label="Maximum Magnitude"
-					defaultValue="6"
+					defaultValue="5.7"
 				/>
 				<br/>
 				<Button

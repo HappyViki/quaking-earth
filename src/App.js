@@ -4,6 +4,7 @@ import NavBar from './Components/NavBar';
 import Display from './Components/Display';
 import Settings from './Components/Settings';
 import Tooltip from './Components/Tooltip';
+import data from './data'
 import './App.css';
 
 const state = {
@@ -31,6 +32,13 @@ const onUpdateSettings = e => {
   e.preventDefault()
   const form = e.target
   console.log("onUpdateSettings",form);
+  fetchData(
+    form.location.value,
+    form.startTime.value,
+    form.endTime.value,
+    form.magMin.value,
+    form.magMax.value
+  )
 }
 
 const onDisplayTab = tab => {
@@ -39,6 +47,32 @@ const onDisplayTab = tab => {
 
 const onAddTab = e => {
   console.log("onAddTab");
+}
+
+const fetchData = (
+  location,
+  startTime,
+  endTime,
+  magMin,
+  magMax
+) => {
+  fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson')
+  .then( data => data.json() )
+  .then( json => {
+    const quakes = json.features
+    .filter(
+      quake => {
+        const q = quake.properties
+        const a = location ? q.place.includes(location) : true
+        const b = startTime ? q.time >= Date.parse(startTime) : true
+        const c = endTime ? q.time <= Date.parse(endTime) : true
+        const d = magMin ? q.mag >= magMin : true
+        const e = magMax ? q.mag <= magMax : true
+        return a && b && c && d && e
+      }
+    )
+    console.log("fetched",quakes)
+  } )
 }
 
 function App() {
@@ -50,7 +84,7 @@ function App() {
         <NavBar currentTab={state.currentTab} tabs={Object.keys(state.data)} onDisplayTab={onDisplayTab} onAddTab={onAddTab} />
       </Grid>
       <Grid item xs={9}>
-        <Display />
+        <Display data={data} />
       </Grid>
       <Grid item xs={3}>
         <Settings onUpdateSettings={onUpdateSettings} />
