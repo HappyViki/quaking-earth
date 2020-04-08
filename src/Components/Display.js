@@ -20,8 +20,10 @@ class Display extends React.Component {
 
 			console.log("visualize",data);
 
+			const tooltip = d3.select("body").append("div").attr("class","tooltip")
+
 			const height = 490
-			const zoom = 30
+			const zoom = 20
 
 			const rainbow = d3.scaleSequential(d3.interpolateInferno).domain([0,6])
 
@@ -41,10 +43,22 @@ class Display extends React.Component {
 				.attr('class', 'ripple')
 				.attr('cx', 0)
 				.attr('cy', height / 2)
-				.attr('r', (d, i) => (1 + i) * zoom)
+				.attr('r', (d, i) => {
+					const duration = i > 0 ? Math.floor( (d.time - data[i-1].time)/1000/60 ) : 0
+					return (1 + i + duration) * zoom
+				})
 				.attr('fill', 'none')
 				.attr('stroke', (d) => rainbow(Math.round(d.mag)))
-				.attr('stroke-width', d => Math.round(d.mag*d.mag))
+				.attr('stroke-width', 10)
+				.on('mousemove', (d, i, n) => {
+					tooltip.style("opacity","1")
+						.style("left",d3.event.pageX + 'px')
+						.style("top",d3.event.pageY + 'px')
+						.html(`${new Date(d.time).toUTCString()}<br/>${d.title}`)
+				})
+				.on("mouseout", () => {
+					tooltip.style("opacity","0")
+				})
 		}
 
 	 }
@@ -58,7 +72,6 @@ class Display extends React.Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
 		features: state.data[state.currentIndex].features,
 	};
