@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Settings = ({onUpdateSettings}) => {
+const Settings = ({onUpdateSettings, location, startTime, endTime, magMin, magMax}) => {
 
 	const classes = useStyles();
 
@@ -27,7 +28,7 @@ const Settings = ({onUpdateSettings}) => {
 					id="location"
 					className={classes.field}
 					label="Location"
-					defaultValue="Magna, Utah"
+					defaultValue={location}
 				/>
 				<br/>
 				<TextField
@@ -35,7 +36,7 @@ const Settings = ({onUpdateSettings}) => {
 					className={classes.field}
 					label="Start Time"
 					type="date"
-					defaultValue="2020-03-18"
+					defaultValue={startTime}
 				/>
 				<br/>
 				<TextField
@@ -43,20 +44,20 @@ const Settings = ({onUpdateSettings}) => {
 					className={classes.field}
 					label="End Time"
 					type="date"
-					defaultValue="2020-03-24"
+					defaultValue={endTime}
 				/>
 				<br/>
 				<TextField
 					id="magMin"
 					className={classes.field}
 					label="Minimum Magnitude"
-					defaultValue="3.5"
+					defaultValue={magMin}
 				/>
 				<TextField
 					id="magMax"
 					className={classes.field}
 					label="Maximum Magnitude"
-					defaultValue="5.7"
+					defaultValue={magMax}
 				/>
 				<br/>
 				<Button
@@ -71,4 +72,16 @@ const Settings = ({onUpdateSettings}) => {
 	)
 }
 
-export default Settings
+const mapStateToProps = state => {
+  if (!state.data.length) return {}
+  const settings = state.data[state.currentIndex].settings
+	return {
+		location: settings.location,
+    startTime: settings.startTime,
+    endTime: settings.endTime,
+    magMin: settings.magMin,
+    magMax: settings.magMax
+	};
+};
+
+export default connect(mapStateToProps)(Settings)

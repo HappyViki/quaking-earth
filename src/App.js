@@ -15,7 +15,18 @@ import {
 } from './actions'
 import './App.css';
 
-const store = createStore(rootReducer, defaultState)
+const getLocalState = () => {
+  const savedState = localStorage.getItem('quaking-earth-state')
+  const state = savedState ? JSON.parse(savedState) : defaultState
+  return state
+};
+
+const store = createStore(rootReducer, getLocalState())
+
+const saveStateLocally = () => {
+  const state = JSON.stringify(store.getState());
+  localStorage.setItem('quaking-earth-state', state);
+};
 
 console.log(store.getState())
 
@@ -76,15 +87,17 @@ const fetchData = (
       index,
       quakes
     ))
+    saveStateLocally()
     console.log("fetched",quakes)
   } )
 }
 
 function App() {
   const state = store.getState()
+  console.log(state);
   const data = state.data
-  const tabs = data.map( dataSet => dataSet.name )
-  const features = data[state.currentIndex].features
+  const tabs = data.length ? data.map( dataSet => dataSet.name ) : []
+  const features = data.length ? data[state.currentIndex].features : null
 
   return (
     <Provider store={store}>

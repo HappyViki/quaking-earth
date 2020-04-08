@@ -73,7 +73,7 @@ class Display extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		features: state.data[state.currentIndex].features,
+		features: state.data.length ? state.data[state.currentIndex].features : {},
 	};
 };
 
