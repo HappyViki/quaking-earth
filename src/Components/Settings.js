@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Settings = ({onUpdateSettings, location, startTime, endTime, magMin, magMax}) => {
+const Settings = ({onUpdateSettings, name, location, startTime, endTime, magMin, magMax}) => {
 
 	const classes = useStyles();
 
@@ -24,6 +24,12 @@ const Settings = ({onUpdateSettings, location, startTime, endTime, magMin, magMa
 		<Paper className={classes.root}>
 			<form onSubmit={onUpdateSettings}>
 				<h2>Earthquake Settings</h2>
+        <TextField
+					id="name"
+					className={classes.field}
+					label="Name"
+					defaultValue={name}
+				/>
 				<TextField
 					id="location"
 					className={classes.field}
@@ -74,8 +80,11 @@ const Settings = ({onUpdateSettings, location, startTime, endTime, magMin, magMa
 
 const mapStateToProps = state => {
   if (!state.data.length) return {}
-  const settings = state.data[state.currentIndex].settings
+  const currentData = state.data[state.currentIndex]
+  const settings = currentData.settings
+  console.log("index",settings);
 	return {
+    name: currentData.name,
 		location: settings.location,
     startTime: settings.startTime,
     endTime: settings.endTime,

@@ -35,6 +35,7 @@ const onUpdateSettings = e => {
   const form = e.target
   console.log("onUpdateSettings",form);
   fetchData(
+    form.name.value,
     form.location.value,
     form.startTime.value,
     form.endTime.value,
@@ -52,6 +53,7 @@ const onAddTab = e => {
 }
 
 const fetchData = (
+  name,
   location,
   startTime,
   endTime,
@@ -83,9 +85,19 @@ const fetchData = (
       })
     ).reverse()
     const index = store.getState().currentIndex
-    store.dispatch(updateViewFeatures(
+    store.dispatch(updateView(
       index,
-      quakes
+      {
+        name: name,
+        settings: {
+          location: location,
+          startTime: startTime,
+          endTime: endTime,
+          magMin: magMin,
+          magMax: magMax
+        },
+        features: quakes
+      }
     ))
     saveStateLocally()
     console.log("fetched",quakes)
@@ -104,8 +116,6 @@ function App() {
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <NavBar
-            currentTab={state.currentIndex}
-            tabs={tabs}
             onDisplayTab={onDisplayTab}
             onAddTab={onAddTab}
           />
