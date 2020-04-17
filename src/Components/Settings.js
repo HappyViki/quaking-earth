@@ -5,6 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { makeStyles } from '@material-ui/core/styles';
+import {
+  updateViewSettings,
+  fetchData
+} from '../actions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,56 +20,49 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const Settings = ({onUpdateSettings, name, location, startTime, endTime, magMin, magMax}) => {
+const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const settings = Object.values(e.target).slice(0,5).reduce(
+      (result, setting) => {
+        result[setting.id] = setting.value
+        return result
+      }, {}
+    )
+    console.log("handleSubmit", settings);
+    onUpdateData(index,settings)
+  }
+
+  const handleChange = e => {
+    console.log(e.target.id);
+    const newSettings = {...settings}
+    newSettings[e.target.id] = e.target.value
+    onUpdateSettings(index, newSettings)
+  }
+  console.log("Inside Settings:", settings);
 
 	const classes = useStyles();
 
+  const settingKeys = settings ? Object.keys(settings) : null
+
 	return (
 		<Paper className={classes.root}>
-			<form onSubmit={onUpdateSettings}>
+			<form onSubmit={handleSubmit}>
 				<h2>Earthquake Settings</h2>
-        <TextField
-					id="name"
-					className={classes.field}
-					label="Name"
-					defaultValue={name}
-				/>
-				<TextField
-					id="location"
-					className={classes.field}
-					label="Location"
-					defaultValue={location}
-				/>
-				<br/>
-				<TextField
-					id="startTime"
-					className={classes.field}
-					label="Start Time"
-					type="date"
-					defaultValue={startTime}
-				/>
-				<br/>
-				<TextField
-					id="endTime"
-					className={classes.field}
-					label="End Time"
-					type="date"
-					defaultValue={endTime}
-				/>
-				<br/>
-				<TextField
-					id="magMin"
-					className={classes.field}
-					label="Minimum Magnitude"
-					defaultValue={magMin}
-				/>
-				<TextField
-					id="magMax"
-					className={classes.field}
-					label="Maximum Magnitude"
-					defaultValue={magMax}
-				/>
-				<br/>
+        {
+          settingKeys && settingKeys.map(
+            key => <TextField
+              key={key}
+    					id={key}
+    					className={classes.field}
+    					label={key}
+    					value={settings[key]}
+              onChange={handleChange}
+    				/>
+          )
+        }
+
 				<Button
 					variant="contained"
 					type="submit"
@@ -82,15 +79,25 @@ const mapStateToProps = state => {
   if (!state.data.length) return {}
   const currentData = state.data[state.currentIndex]
   const settings = currentData.settings
-  console.log("index",settings);
+  console.log("Settings:",state.currentIndex,settings);
 	return {
-    name: currentData.name,
-		location: settings.location,
-    startTime: settings.startTime,
-    endTime: settings.endTime,
-    magMin: settings.magMin,
-    magMax: settings.magMax
+    index: state.currentIndex,
+		settings: settings
 	};
 };
 
-export default connect(mapStateToProps)(Settings)
+const mapDispatchToProps = dispatch => ({
+  onUpdateSettings: (index, settings) => {
+    return dispatch(
+      updateViewSettings(index, settings)
+    )
+  },
+  onUpdateData: (index, settings) => {
+    console.log("Settings Dispatch:",settings);
+    return dispatch(
+      fetchData(index, settings)
+    )
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)

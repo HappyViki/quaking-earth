@@ -18,7 +18,7 @@ class Display extends React.Component {
 
 		if (data) {
 
-			console.log("visualize",data);
+			console.log("Display:",data);
 
 			const tooltip = d3.select("body").append("div").attr("class","tooltip")
 

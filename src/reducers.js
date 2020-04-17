@@ -3,7 +3,10 @@ import {
   ADD_VIEW,
   UPDATE_VIEW,
 	CURRENT_VIEW,
-  UPDATE_VIEW_FEATURES
+  UPDATE_VIEW_SETTINGS,
+  UPDATE_VIEW_FEATURES,
+  START_FETCHING,
+  STOP_FETCHING
 } from './actions'
 
 const currentIndex = (state=0, action) => {
@@ -24,6 +27,9 @@ const data = (state=[], action) => {
 		case UPDATE_VIEW:
 			newState[action.index] = action.payload
 			return newState
+    case UPDATE_VIEW_SETTINGS:
+      newState[action.index].settings = action.payload
+      return newState
     case UPDATE_VIEW_FEATURES:
       newState[action.index].features = action.payload
       return newState
@@ -32,9 +38,21 @@ const data = (state=[], action) => {
 	}
 }
 
+const fetching = (state=false, action) => {
+	switch (action.type) {
+		case START_FETCHING:
+			return true
+		case STOP_FETCHING:
+			return false
+		default:
+			return state
+	}
+}
+
 const rootReducer = combineReducers({
   currentIndex,
-  data
+  data,
+  fetching
 })
 
 export default rootReducer

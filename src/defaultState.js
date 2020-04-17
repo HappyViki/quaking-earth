@@ -1,9 +1,10 @@
 const defaultState = {
 	currentIndex: 0,
+	fetching: false,
 	data: [
 		{
-			name: "quake1",
       settings: {
+	"name": "quake1",
   "location": "Magna, Utah",
   "startTime": "2020-03-18",
   "endTime": "2020-03-24",

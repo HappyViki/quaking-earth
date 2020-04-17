@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import {
+  addView,
+  currentView
+} from '../actions'
 
 function a11yProps(index) {
   return {
@@ -12,6 +16,7 @@ function a11yProps(index) {
 }
 
 const NavBar = ({currentTab, tabs, onDisplayTab, onAddTab}) => {
+  console.log("Tabs:",tabs);
 	return (
 		<AppBar position="static">
       <Tabs value={currentTab} aria-label="simple tabs example">
@@ -33,24 +38,18 @@ const mapStateToProps = state => {
 	return {
     currentTab: state.currentIndex,
     tabs: state.data.map(
-      d => d.name
+      d => d.settings.name
     )
 	};
 };
 
 const mapDispatchToProps = ( dispatch, props ) => ({
-  onAddTab: () => dispatch({
-    type: "ADD_VIEW",
-    payload: {
-      name: "test",
-      settings: {},
-      features: {}
-    }
-  }),
-  onDisplayTab: key => dispatch({
-    type: "CURRENT_VIEW",
-    index: key
-  })
+  onAddTab: () => dispatch(
+    addView()
+  ),
+  onDisplayTab: index => dispatch(
+    currentView(index)
+  )
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
