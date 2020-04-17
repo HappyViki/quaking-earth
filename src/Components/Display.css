@@ -1,0 +1,7 @@
+.svg-container{
+	overflow: auto hidden;
+	height: 100%;
+}
+.svg{
+	height: inherit;
+}

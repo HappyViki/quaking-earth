@@ -9,7 +9,6 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
 import rootReducer from './reducers'
-import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 
 const getLocalState = () => {
@@ -24,9 +23,9 @@ const saveStateLocally = () => {
   const state = JSON.stringify(store.getState());
   localStorage.setItem('quaking-earth-state', state);
 };
-
-console.log("Init state:",store.getState())
-
+const dropStateLocally = () => {
+  localStorage.removeItem('quaking-earth-state');
+};
 
 function App() {
   return (
@@ -43,7 +42,10 @@ function App() {
         </Grid>
       </Grid>
       <Button onClick={saveStateLocally}>
-        saveStateLocally
+        Save Current State
+      </Button>
+      <Button onClick={dropStateLocally}>
+        Default State
       </Button>
     </Provider>
   );

@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 	field: {
 		'margin-bottom': theme.spacing(2),
+    'display': 'block'
 	}
 }));
 
@@ -24,23 +25,20 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    const settings = Object.values(e.target).slice(0,5).reduce(
+    const settings = Object.values(e.target).slice(0,6).reduce(
       (result, setting) => {
         result[setting.id] = setting.value
         return result
       }, {}
     )
-    console.log("handleSubmit", settings);
     onUpdateData(index,settings)
   }
 
   const handleChange = e => {
-    console.log(e.target.id);
     const newSettings = {...settings}
     newSettings[e.target.id] = e.target.value
     onUpdateSettings(index, newSettings)
   }
-  console.log("Inside Settings:", settings);
 
 	const classes = useStyles();
 
@@ -70,6 +68,7 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
 				>
 				Update
 				</Button>
+        <p>Up to one month of data</p>
 			</form>
 		</Paper>
 	)
@@ -79,7 +78,6 @@ const mapStateToProps = state => {
   if (!state.data.length) return {}
   const currentData = state.data[state.currentIndex]
   const settings = currentData.settings
-  console.log("Settings:",state.currentIndex,settings);
 	return {
     index: state.currentIndex,
 		settings: settings
@@ -93,7 +91,6 @@ const mapDispatchToProps = dispatch => ({
     )
   },
   onUpdateData: (index, settings) => {
-    console.log("Settings Dispatch:",settings);
     return dispatch(
       fetchData(index, settings)
     )

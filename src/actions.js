@@ -102,8 +102,6 @@ export const fetchData = (
       )
       .reverse()
 
-      console.log("Fetched:",quakes)
-
       dispatch(stopFetching());
 
       dispatch(

@@ -16,7 +16,6 @@ function a11yProps(index) {
 }
 
 const NavBar = ({currentTab, tabs, onDisplayTab, onAddTab}) => {
-  console.log("Tabs:",tabs);
 	return (
 		<AppBar position="static">
       <Tabs value={currentTab} aria-label="simple tabs example">

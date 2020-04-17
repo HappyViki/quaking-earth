@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as d3 from 'd3';
+import './Display.css';
 
 class Display extends React.Component {
 
@@ -18,7 +19,7 @@ class Display extends React.Component {
 
 		if (data) {
 
-			console.log("Display:",data);
+			console.log("Display:", data);
 
 			const tooltip = d3.select("body").append("div").attr("class","tooltip")
 
@@ -43,9 +44,12 @@ class Display extends React.Component {
 				.attr('class', 'ripple')
 				.attr('cx', 0)
 				.attr('cy', height / 2)
-				.attr('r', (d, i) => {
-					const duration = i > 0 ? Math.floor( (d.time - data[i-1].time)/1000/60 ) : 0
-					return (1 + i + duration) * zoom
+				.attr('r', (d, i, n) => {
+					const radius = (1 + i) * zoom
+					if (i === n.length - 1) {
+						svg.attr("width", radius + 10)
+					}
+					return radius
 				})
 				.attr('fill', 'none')
 				.attr('stroke', (d) => rainbow(Math.round(d.mag)))
@@ -64,10 +68,7 @@ class Display extends React.Component {
 	 }
 
 	render() {
-		return <svg
-			width='100%'
-			height='100%'
-		/>
+		return <div className="svg-container"><svg className="svg" /></div>
 	}
 }
 
