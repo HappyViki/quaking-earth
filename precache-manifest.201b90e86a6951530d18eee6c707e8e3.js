@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cea826caa0b68b3e728e8f31560ae998",
+    "revision": "6b15786a462be1e4119a378dc6e9826f",
     "url": "/quaking-earth/index.html"
   },
   {
-    "revision": "def7de9e6c6a61990e17",
+    "revision": "dc4a32ed833578d0cb07",
     "url": "/quaking-earth/static/css/2.262995c7.chunk.css"
   },
   {
-    "revision": "007141c69b1b848be495",
-    "url": "/quaking-earth/static/css/main.2f17a490.chunk.css"
+    "revision": "a88362461d1ba66b8d3a",
+    "url": "/quaking-earth/static/css/main.3c3856e8.chunk.css"
   },
   {
-    "revision": "def7de9e6c6a61990e17",
-    "url": "/quaking-earth/static/js/2.dea21a4f.chunk.js"
+    "revision": "dc4a32ed833578d0cb07",
+    "url": "/quaking-earth/static/js/2.b5b75d9e.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/quaking-earth/static/js/2.dea21a4f.chunk.js.LICENSE.txt"
+    "url": "/quaking-earth/static/js/2.b5b75d9e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "007141c69b1b848be495",
-    "url": "/quaking-earth/static/js/main.7926cb6e.chunk.js"
+    "revision": "a88362461d1ba66b8d3a",
+    "url": "/quaking-earth/static/js/main.752e9251.chunk.js"
   },
   {
     "revision": "b2021d7ff1a69c38a331",
