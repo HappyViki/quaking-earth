@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/quaking-earth/precache-manifest.201b90e86a6951530d18eee6c707e8e3.js"
+  "/quaking-earth/precache-manifest.fc085f937930ff1429170f3ca51fc6e7.js"
 );
 
 self.addEventListener('message', (event) => {

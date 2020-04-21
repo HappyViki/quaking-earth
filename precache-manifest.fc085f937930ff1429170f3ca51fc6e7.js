@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6b15786a462be1e4119a378dc6e9826f",
+    "revision": "50518a4d5a2316f7a78de86262639aea",
     "url": "/quaking-earth/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/quaking-earth/static/css/2.262995c7.chunk.css"
   },
   {
-    "revision": "a88362461d1ba66b8d3a",
+    "revision": "9bdafabba3d94f8007c0",
     "url": "/quaking-earth/static/css/main.3c3856e8.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/quaking-earth/static/js/2.b5b75d9e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "a88362461d1ba66b8d3a",
-    "url": "/quaking-earth/static/js/main.752e9251.chunk.js"
+    "revision": "9bdafabba3d94f8007c0",
+    "url": "/quaking-earth/static/js/main.04584f15.chunk.js"
   },
   {
     "revision": "b2021d7ff1a69c38a331",
