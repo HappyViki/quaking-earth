@@ -17,7 +17,15 @@ class Display extends React.Component {
 
 		const data = this.props.features
 
-		if (data) {
+		const hasChildren = d3.select('svg').select('g')
+
+		if (hasChildren) {
+			hasChildren.remove()
+		}
+
+		if (data.length > 0) {
+
+			const dataSet = data.slice(0,100)
 
 			console.log("Display:", data);
 
@@ -30,16 +38,10 @@ class Display extends React.Component {
 
 			const svg = d3.select('svg')
 
-			const hasChildren = d3.select('svg').select('g')
-
-			if (hasChildren) {
-				hasChildren.remove()
-			}
-
 			const ripples = svg.append("g")
 
 			ripples.selectAll('circle.ripple')
-				.data(data)
+				.data(dataSet)
 				.enter().append('circle')
 				.attr('class', 'ripple')
 				.attr('cx', 0)

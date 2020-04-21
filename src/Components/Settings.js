@@ -18,7 +18,11 @@ const useStyles = makeStyles((theme) => ({
 	field: {
 		'margin-bottom': theme.spacing(2),
     'display': 'block'
-	}
+	},
+  note: {
+    "color": "red",
+    "font-style": "italic"
+  }
 }));
 
 const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
@@ -63,11 +67,11 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
     },
     magMin: {
       label: 'Minimum Magnitude',
-      type: 'number'
+      type: 'text'
     },
     magMax: {
       label: 'Maximum Magnitude',
-      type: 'number'
+      type: 'text'
     }
   }
 
@@ -96,7 +100,9 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
 				>
 				Update
 				</Button>
-        <p>Up to one month of data</p>
+        <p className={classes.note}>
+          Displays maximum 100 datapoints from up to one month of data
+        </p>
 			</form>
 		</Paper>
 	)
