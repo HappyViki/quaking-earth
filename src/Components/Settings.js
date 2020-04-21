@@ -44,6 +44,33 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
 
   const settingKeys = settings ? Object.keys(settings) : null
 
+  const settingAttributes = {
+    name: {
+      label: 'Name',
+      type: 'text'
+    },
+    location: {
+      label: 'Location',
+      type: 'text'
+    },
+    startTime: {
+      label: 'Start Date',
+      type: 'date'
+    },
+    endTime: {
+      label: 'End Date',
+      type: 'date'
+    },
+    magMin: {
+      label: 'Minimum Magnitude',
+      type: 'number'
+    },
+    magMax: {
+      label: 'Maximum Magnitude',
+      type: 'number'
+    }
+  }
+
 	return (
 		<Paper className={classes.root}>
 			<form onSubmit={handleSubmit}>
@@ -54,7 +81,8 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
               key={key}
     					id={key}
     					className={classes.field}
-    					label={key}
+    					label={settingAttributes[key].label}
+              type={settingAttributes[key].type}
     					value={settings[key]}
               onChange={handleChange}
     				/>
