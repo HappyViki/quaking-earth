@@ -1,7 +1,13 @@
 .svg-container{
 	overflow: auto hidden;
 	height: 100%;
+	flex: 1;
 }
 .svg{
 	height: inherit;
+}
+.ripple{
+	cx: 0;
+	fill: none;
+	stroke-width: 10;
 }

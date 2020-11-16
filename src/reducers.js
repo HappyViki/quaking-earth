@@ -1,17 +1,20 @@
 import { combineReducers } from 'redux'
 import {
-  ADD_VIEW,
-  UPDATE_VIEW,
-	CURRENT_VIEW,
-  UPDATE_VIEW_SETTINGS,
-  UPDATE_VIEW_FEATURES,
+  ADD_PANEL,
+  DELETE_PANEL,
+  UPDATE_PANEL,
+	CURRENT_PANEL,
+  UPDATE_PANEL_SETTINGS,
+  UPDATE_PANEL_FEATURES,
   START_FETCHING,
   STOP_FETCHING
 } from './actions'
 
-const currentIndex = (state=0, action) => {
+const currentPanel = (state=0, action) => {
 	switch (action.type) {
-		case CURRENT_VIEW:
+    case DELETE_PANEL:
+      return action.index > 1 ? action.index - 1 : 0
+		case CURRENT_PANEL:
 			return action.index
 		default:
 			return state
@@ -22,15 +25,19 @@ const data = (state=[], action) => {
   const newState = [...state]
 
 	switch (action.type) {
-		case ADD_VIEW:
+		case ADD_PANEL:
 			return [...state, action.payload]
-		case UPDATE_VIEW:
+    case DELETE_PANEL:
+      return newState.filter(
+        (panel, index) => index !== action.index
+      )
+		case UPDATE_PANEL:
 			newState[action.index] = action.payload
 			return newState
-    case UPDATE_VIEW_SETTINGS:
+    case UPDATE_PANEL_SETTINGS:
       newState[action.index].settings = action.payload
       return newState
-    case UPDATE_VIEW_FEATURES:
+    case UPDATE_PANEL_FEATURES:
       newState[action.index].features = action.payload
       return newState
 		default:
@@ -50,7 +57,7 @@ const fetching = (state=false, action) => {
 }
 
 const rootReducer = combineReducers({
-  currentIndex,
+  currentPanel,
   data,
   fetching
 })

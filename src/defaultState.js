@@ -1,5 +1,5 @@
 const defaultState = {
-	currentIndex: 0,
+	currentPanel: 0,
 	fetching: false,
 	data: [
 		{

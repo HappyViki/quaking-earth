@@ -29,7 +29,7 @@ class Display extends React.Component {
 
 			console.log("Display:", data);
 
-			const tooltip = d3.select("body").append("div").attr("class","tooltip")
+			const tooltip = d3.select(".tooltip")
 
 			const height = 490
 			const zoom = 20
@@ -44,7 +44,6 @@ class Display extends React.Component {
 				.data(dataSet)
 				.enter().append('circle')
 				.attr('class', 'ripple')
-				.attr('cx', 0)
 				.attr('cy', height / 2)
 				.attr('r', (d, i, n) => {
 					const radius = (1 + i) * zoom
@@ -53,9 +52,7 @@ class Display extends React.Component {
 					}
 					return radius
 				})
-				.attr('fill', 'none')
 				.attr('stroke', (d) => rainbow(Math.round(d.mag)))
-				.attr('stroke-width', 10)
 				.on('mousemove', (d, i, n) => {
 					tooltip.style("opacity","1")
 						.style("left",d3.event.pageX + 'px')
@@ -76,7 +73,7 @@ class Display extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		features: state.data.length ? state.data[state.currentIndex].features : {},
+		features: state.data.length ? state.data[state.currentPanel].features : {},
 	};
 };
 

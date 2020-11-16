@@ -1,0 +1,15 @@
+.navbar{
+	display: flex;
+	flex-direction: row;
+}
+.tab{
+	flex: 1;
+	background: yellow;
+}
+.tab.current{
+	background: aqua;
+}
+.add-tab{
+	flex: 0;
+	background: green;
+}

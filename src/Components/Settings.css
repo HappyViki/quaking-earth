@@ -1,0 +1,9 @@
+.settings{
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	margin-left: 64px;
+}
+.field{
+	margin: 4px 8px;
+}

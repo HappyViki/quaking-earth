@@ -1,31 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
-import { makeStyles } from '@material-ui/core/styles';
 import {
-  updateViewSettings,
-  fetchData
+  updatePanelSettings,
+  deletePanel,
 } from '../actions'
+import fetchData from '../fetchData'
+import './Settings.css';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-		margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-	field: {
-		'margin-bottom': theme.spacing(2),
-    'display': 'block'
-	},
-  note: {
-    "color": "red",
-    "font-style": "italic"
-  }
-}));
-
-const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
+const Settings = ({updatePanelSettings, deletePanel, fetchData, currentPanel, settings}) => {
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -35,16 +17,14 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
         return result
       }, {}
     )
-    onUpdateData(index,settings)
+    fetchData(currentPanel,settings)
   }
 
   const handleChange = e => {
     const newSettings = {...settings}
     newSettings[e.target.id] = e.target.value
-    onUpdateSettings(index, newSettings)
+    updatePanelSettings(currentPanel, newSettings)
   }
-
-	const classes = useStyles();
 
   const settingKeys = settings ? Object.keys(settings) : null
 
@@ -76,15 +56,18 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
   }
 
 	return (
-		<Paper className={classes.root}>
+		<div className="settings">
+    {
+      settingKeys ?
+      <>
 			<form onSubmit={handleSubmit}>
 				<h2>Earthquake Settings</h2>
         {
           settingKeys && settingKeys.map(
-            key => <TextField
+            key => <input
               key={key}
     					id={key}
-    					className={classes.field}
+              className='field'
     					label={settingAttributes[key].label}
               type={settingAttributes[key].type}
     					value={settings[key]}
@@ -93,38 +76,49 @@ const Settings = ({onUpdateSettings, onUpdateData, index, settings}) => {
           )
         }
 
-				<Button
+				<button
 					variant="contained"
 					type="submit"
-					startIcon={<SaveIcon />}
 				>
 				Update
-				</Button>
-        <p className={classes.note}>
+				</button>
+        <p>
           Displays maximum 100 datapoints from up to one month of data
         </p>
 			</form>
-		</Paper>
+      <button
+        onClick={()=>{deletePanel(currentPanel)}}
+      >
+      Delete Panel
+      </button>
+      </> : <p>Please add a panel by clicking the green button on the left of your screen.</p>
+    }
+		</div>
 	)
 }
 
 const mapStateToProps = state => {
   if (!state.data.length) return {}
-  const currentData = state.data[state.currentIndex]
+  const currentData = state.data[state.currentPanel]
   const settings = currentData.settings
 	return {
-    index: state.currentIndex,
+    currentPanel: state.currentPanel,
 		settings: settings
 	};
 };
 
 const mapDispatchToProps = dispatch => ({
-  onUpdateSettings: (index, settings) => {
+  updatePanelSettings: (index, settings) => {
     return dispatch(
-      updateViewSettings(index, settings)
+      updatePanelSettings(index, settings)
     )
   },
-  onUpdateData: (index, settings) => {
+  deletePanel: index => {
+    return dispatch(
+      deletePanel(index)
+    )
+  },
+  fetchData: (index, settings) => {
     return dispatch(
       fetchData(index, settings)
     )

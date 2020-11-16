@@ -1,6 +1,4 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import NavBar from './Components/NavBar';
 import Display from './Components/Display';
 import Settings from './Components/Settings';
@@ -30,23 +28,22 @@ const dropStateLocally = () => {
 function App() {
   return (
     <Provider store={store}>
-      <Grid container>
-        <Grid item xs={12}>
-          <NavBar />
-        </Grid>
-        <Grid item xs={9}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <NavBar />
+        <div style={{ display: 'flex', flexDirection: 'row', flex: 1 }}>
           <Display />
-        </Grid>
-        <Grid item xs={3}>
           <Settings />
-        </Grid>
-      </Grid>
-      <Button onClick={saveStateLocally}>
-        Save Current State
-      </Button>
-      <Button onClick={dropStateLocally}>
-        Default State
-      </Button>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <button onClick={saveStateLocally}>
+            Save Current State
+          </button>
+          <button onClick={dropStateLocally}>
+            Default State
+          </button>
+        </div>
+      </div>
+      <div className="tooltip"></div>
     </Provider>
   );
 }

@@ -1,12 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import {
-  addView,
-  currentView
+  addPanel,
+  setCurrentPanel
 } from '../actions'
+import './NavBar.css';
 
 function a11yProps(index) {
   return {
@@ -15,27 +13,26 @@ function a11yProps(index) {
   };
 }
 
-const NavBar = ({currentTab, tabs, onDisplayTab, onAddTab}) => {
-	return (
-		<AppBar position="static">
-      <Tabs value={currentTab} aria-label="simple tabs example">
-  			{tabs && tabs.map((tab, key) =>
-          <Tab key={key} label={tab} onClick={()=>onDisplayTab(key)} {...a11yProps(tab)} />
-  			)}
-        <Tab
-          style={{background: '#40a9ff'}}
-          label='+' {...a11yProps('add-tab')}
-          onClick={onAddTab}
-        />
-      </Tabs>
-		</AppBar>
+const NavBar = ({currentPanel, tabs, setCurrentPanel, addPanel}) => {
+
+  return (
+    <div value={currentPanel} aria-label="earthquake panel tabs" className="navbar">
+			{tabs && tabs.map((tab, key) =>
+        <button key={key} onClick={()=>setCurrentPanel(key)} className={currentPanel === key ? 'tab current' : 'tab'} {...a11yProps(tab)}>{tab}</button>
+			)}
+      <button
+        className="add-tab"
+         {...a11yProps('add-tab')}
+        onClick={addPanel}
+      >+</button>
+    </div>
 	)
 }
 
 const mapStateToProps = state => {
   if (!state.data.length) return {}
 	return {
-    currentTab: state.currentIndex,
+    currentPanel: state.currentPanel,
     tabs: state.data.map(
       d => d.settings.name
     )
@@ -43,11 +40,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = ( dispatch, props ) => ({
-  onAddTab: () => dispatch(
-    addView()
+  addPanel: () => dispatch(
+    addPanel()
   ),
-  onDisplayTab: index => dispatch(
-    currentView(index)
+  setCurrentPanel: index => dispatch(
+    setCurrentPanel(index)
   )
 })
 
