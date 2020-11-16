@@ -1,26 +1,22 @@
 {
   "files": {
-    "main.css": "/quaking-earth/static/css/main.3c3856e8.chunk.css",
-    "main.js": "/quaking-earth/static/js/main.06cb1087.chunk.js",
-    "main.js.map": "/quaking-earth/static/js/main.06cb1087.chunk.js.map",
-    "runtime-main.js": "/quaking-earth/static/js/runtime-main.769ed453.js",
-    "runtime-main.js.map": "/quaking-earth/static/js/runtime-main.769ed453.js.map",
-    "static/css/2.262995c7.chunk.css": "/quaking-earth/static/css/2.262995c7.chunk.css",
-    "static/js/2.b5b75d9e.chunk.js": "/quaking-earth/static/js/2.b5b75d9e.chunk.js",
-    "static/js/2.b5b75d9e.chunk.js.map": "/quaking-earth/static/js/2.b5b75d9e.chunk.js.map",
+    "main.css": "/quaking-earth/static/css/main.77928952.chunk.css",
+    "main.js": "/quaking-earth/static/js/main.72b0fd2f.chunk.js",
+    "main.js.map": "/quaking-earth/static/js/main.72b0fd2f.chunk.js.map",
+    "runtime-main.js": "/quaking-earth/static/js/runtime-main.58179364.js",
+    "runtime-main.js.map": "/quaking-earth/static/js/runtime-main.58179364.js.map",
+    "static/js/2.a5c92fb9.chunk.js": "/quaking-earth/static/js/2.a5c92fb9.chunk.js",
+    "static/js/2.a5c92fb9.chunk.js.map": "/quaking-earth/static/js/2.a5c92fb9.chunk.js.map",
+    "static/js/3.dfe3eba4.chunk.js": "/quaking-earth/static/js/3.dfe3eba4.chunk.js",
+    "static/js/3.dfe3eba4.chunk.js.map": "/quaking-earth/static/js/3.dfe3eba4.chunk.js.map",
     "index.html": "/quaking-earth/index.html",
-    "precache-manifest.64fcbe4caa9a0789cddfe42442c925f2.js": "/quaking-earth/precache-manifest.64fcbe4caa9a0789cddfe42442c925f2.js",
-    "service-worker.js": "/quaking-earth/service-worker.js",
-    "static/css/2.262995c7.chunk.css.map": "/quaking-earth/static/css/2.262995c7.chunk.css.map",
-    "static/css/main.3c3856e8.chunk.css.map": "/quaking-earth/static/css/main.3c3856e8.chunk.css.map",
-    "static/js/2.b5b75d9e.chunk.js.LICENSE.txt": "/quaking-earth/static/js/2.b5b75d9e.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/quaking-earth/static/media/roboto-latin-900italic.ebf6d164.woff2"
+    "static/css/main.77928952.chunk.css.map": "/quaking-earth/static/css/main.77928952.chunk.css.map",
+    "static/js/2.a5c92fb9.chunk.js.LICENSE.txt": "/quaking-earth/static/js/2.a5c92fb9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.769ed453.js",
-    "static/css/2.262995c7.chunk.css",
-    "static/js/2.b5b75d9e.chunk.js",
-    "static/css/main.3c3856e8.chunk.css",
-    "static/js/main.06cb1087.chunk.js"
+    "static/js/runtime-main.58179364.js",
+    "static/js/2.a5c92fb9.chunk.js",
+    "static/css/main.77928952.chunk.css",
+    "static/js/main.72b0fd2f.chunk.js"
   ]
 }
